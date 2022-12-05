@@ -1,0 +1,35 @@
+<?php print_r($user); ?>
+<?php require VIEWS . '/includes/header.phtml'; ?>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Editar</h1>
+            </div>
+        </div>
+        <div class="">
+            <a href="<?=HOME . '/?url=users/list';?>" class="btn btn-md btn-danger mb-3">
+                Voltar
+            </a>
+            <div class="row">
+                <?php require VIEWS . '/includes/message.phtml'; ?>
+            </div>
+            <form action="<?=HOME . '?url=users/edit'?>" method="POST">
+                <div class="form-group">
+                        <label for="exampleInputPassword1">Nome</label>
+                        <input type="text" class="form-control" placeholder="Nome" name="name" value="<?=$user['name']?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Endereço de email</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Seu email" name="email" value="<?=$user['email']?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Senha</label>
+                        <input type="password" class="form-control" placeholder="Se você deseja alterar a senha do usuário, preencha aqui!" name="password">
+                    </div>
+
+                <input type="hidden" name="id" value="<?=$user['id'];?>">
+                <button type="submit" class="btn btn-primary">Salvar usuário</button>
+            </form>
+        </div>
+    
+<?php require VIEWS . '/includes/footer.phtml'; ?>
