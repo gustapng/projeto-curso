@@ -14,8 +14,8 @@
         )";
 
         $create = $pdo->prepare($sql);
-        $create->bindValue(":image", $data['image'], PDO::PARAM_INT);   
-        $create->bindValue(":product_id", $data['product_id'], PDO::PARAM_INT);
+        $create->bindValue(":image", $data['image'], PDO::PARAM_STR);   
+        $create->bindValue(":product_id", $data['product_id'], PDO::PARAM_STR);
 
         return $create->execute();
     }

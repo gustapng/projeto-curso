@@ -157,11 +157,11 @@ if($page[0] == 'products') {
             }
 
             if(isset($images['name'][0]) && $images['name'][0] != '') {
-                upload($images, $productId, connection());  
+                upload($images, $data['id'], connection());  
             }
             
             $msg = 'Produto atualizado com sucesso!';
-            Header("Location: " . HOME . '/?url=products/list&msg=' . $msg);
+            Header("Location: " . HOME . '/?url=products/edit&id=' . $data['id'] . '&msg=' . $msg);
 
         }
 
@@ -180,8 +180,6 @@ if($page[0] == 'products') {
 
     if($page[1] == 'save') {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            require 'src/functions/products_images.php';
-            require 'src/functions/upload.php';
             $data = $_POST;
 
             $images = $_FILES['images'];
@@ -222,6 +220,23 @@ if($page[0] == 'products') {
         $msg = 'Produto removido com sucesso!';
         Header("Location: " . HOME . '/?url=products/list&msg=' . $msg);
     }
+}
+
+if($page[0] == 'categories') {
+    require 'src/functions/categories.php';
+
+    if($page[1] == 'list') {
+        $categories = getAll(connection());
+
+        require VIEWS . '/categories/index.phtml';
+    }
+
+    if($page[1] == 'save') {
+        //$products = getAll(connection());
+
+        require VIEWS . '/categories/save.phtml';
+    }
+
 }
 
 require $page;

@@ -1,0 +1,47 @@
+<?php require VIEWS . '/includes/header.phtml'; ?>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Categorias</h1>
+            </div>
+        </div>
+        <div class="row">
+            <?php require VIEWS . '/includes/message.phtml'; ?>
+        </div>
+        <div class="row">
+            <a href="<?=HOME . '/?url=categories/save';?>" class="btn btn-md btn-primary mb-3">
+                Criar Categoria
+            </a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Criado Em</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <!-- <tbody>
+                    <?php foreach($products as $product) { ?>
+                    <tr>
+                        <td>
+                            <?php if($product['image']): ?>
+                                <img src="<?= HOME . '/assets/uploads/thumbs/' . $product['image']; ?>" alt="thumb" width="100" heigth="100">
+                            <?php else: ?>
+                                <img src="https://place-hold.it/100x100/666/fff.png/000" alt="thumb">
+                            <?php endif; ?>
+                        </td>
+                        <td><?=$product['id']?></td>
+                        <td><?=$product['name']?></td>
+                        <td><?=$product['price']?></td>
+                        <td>
+                            <a href="<?=HOME . '?url=products/edit&id='. $product['id'] ;?>" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="<?=HOME . '?url=products/remove&id='. $product['id'] ;?>" class="btn btn-sm btn-danger">Remover</a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody> -->
+            </table>
+        </div>
+    
+<?php require VIEWS . '/includes/footer.phtml'; ?>
