@@ -1,31 +1,28 @@
 <?php
 
     //Create a new user in data base
-    function create($pdo, $data) {
-        $sql = "insert into users(
+    function createCategory($pdo, $data) {
+        $sql = "insert into categories(
             name,
-            email,
-            password,
+            description,        
             created_at,
             updated_at)
         values (
             :name,
-            :email,
-            :password,
+            :description,
             now(),
             now())";
 
         $create = $pdo->prepare($sql);
         $create->bindValue(":name", $data['name'], PDO::PARAM_STR);
-        $create->bindValue("email", $data['email'], PDO::PARAM_STR);
-        $create->bindValue("password", sha1($data['password'] . APP_KEY));
+        $create->bindValue(":description", $data['description'], PDO::PARAM_STR);
 
         return $create->execute();
     };
 
     //Get all users from data base
-    function getAll($pdo) {
-        $sql = "select * from categories ORDER BY id DESC";
+    function getAllCategories($pdo) {
+        $sql = "select * from categories";
 
         $get = $pdo->prepare($sql);
         $get->execute();
@@ -33,9 +30,9 @@
         return $get->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Get user from id
-    function get($pdo, $id) {
-        $sql = "select id, name, email from users where id = :id";
+    //Get category from id
+    function getCategory($pdo, $id) {
+        $sql = "select id, name, description from categories where id = :id";
         $get = $pdo->prepare($sql);
         $get->bindValue("id", $id, PDO::PARAM_INT);
         $get->execute();
@@ -47,18 +44,9 @@
         return $users;
     }
 
-    function getUserByEmail($pdo, $email) {
-        $sql = "select id, name, email from users where email = :email";
-        $get = $pdo->prepare($sql);
-        $get->bindValue("email", $email, PDO::PARAM_STR);
-        $get->execute();
-
-        return $get->rowCount();
-    }
-
     //Update name and email with the id
-    function update($pdo, $data) {
-        $sql = "update users set";
+    function updateCategory($pdo, $data) {
+        $sql = "update categories set";
 
         $sqlSet = '';
 
@@ -66,12 +54,8 @@
             $sqlSet .= " name = :name";
         }
 
-        if(isset($data['email']) && $data['email']) {
-            $sqlSet .= $sqlSet ? ", email = :email" : " email = :email";
-        }
-
-        if(isset($data['password']) && $data['password']) {
-            $sqlSet .= $sqlSet ? ", password = :password" : " password = :password";
+        if(isset($data['description']) && $data['description']) {
+            $sqlSet .= $sqlSet ? ", description = :description" : " description = :description";
         }
 
         $sql = $sqlSet ? $sql . $sqlSet .= ' where id = :id' : $sql;
@@ -82,12 +66,8 @@
             $update->bindValue(":name", $data['name'], PDO::PARAM_STR);
         }
 
-        if(isset($data['email']) && $data['email']) {
-            $update->bindValue(":email", $data['email'], PDO::PARAM_STR);
-        }
-
-        if(isset($data['password']) && $data['password']) {
-            $update->bindValue(":password", sha1($data['password'] . APP_KEY), PDO::PARAM_STR);
+        if(isset($data['description']) && $data['description']) {
+            $update->bindValue(":description", $data['description'], PDO::PARAM_STR);
         }
 
         $update->bindValue("id", $data['id'], PDO::PARAM_INT);
@@ -96,8 +76,8 @@
     }
 
     //Delete the user from db
-    function delete($pdo, $id) {
-        $sql = "delete from users where id = :id";
+    function deleteCategory($pdo, $id) {
+        $sql = "delete from categories where id = :id";
         $delete = $pdo->prepare($sql);
         $delete->bindValue(":id", $id, PDO::PARAM_INT);
 

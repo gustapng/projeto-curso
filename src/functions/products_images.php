@@ -3,7 +3,7 @@
     function saveImages($data, $pdo) {
         $sql = "insert into products_images(
             product_id, 
-            image, 
+            image,
             created_at,     
             updated_at)
         VALUES (

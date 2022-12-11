@@ -15,9 +15,11 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>#</th>
                         <th>Produto</th>
                         <th>Preço</th>
+                        <th>Categoria</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -34,6 +36,7 @@
                         <td><?=$product['id']?></td>
                         <td><?=$product['name']?></td>
                         <td><?=$product['price']?></td>
+                        <td><p class="badge badge-success"><?=$product['category']?></p></td>
                         <td>
                             <a href="<?=HOME . '?url=products/edit&id='. $product['id'] ;?>" class="btn btn-sm btn-warning">Editar</a>
                             <a href="<?=HOME . '?url=products/remove&id='. $product['id'] ;?>" class="btn btn-sm btn-danger">Remover</a>

@@ -31,9 +31,7 @@ if($page[0] == 'users') {
     if($page[1] == 'edit') {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {  
-            $data = $_POST;
-
-            $data = sanitizerString($data, returnRulesSanitize()); 
+            $data = $_POST; 
 
             if(!validateEmail($data['email'])) {
                 $msg = 'Email inválido!';
@@ -45,7 +43,8 @@ if($page[0] == 'users') {
                 return Header("Location: " . HOME . '/?url=users/edit&id=' . $data['id'] . '&msg=' . $msg);
             }
             
-            if(!update(connection(), $data)) {  
+            if(!update(connection(), $data)) {
+                print_r($data);
                 $msg = 'Erro ao atualizar usuário';
                 Header("Location: " . HOME . '/?url=users/list&msg=' . $msg);
             }
@@ -54,6 +53,7 @@ if($page[0] == 'users') {
             Header("Location: " . HOME . '/?url=users/list&msg=' . $msg);
 
         }
+        
 
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
             $user = get(connection(), $_GET['id']);
@@ -115,7 +115,7 @@ if($page[0] == 'users') {
 
             $msg = 'Usuário removido com sucesso!';
             Header("Location: " . HOME . '/?url=users/list&msg=' . $msg);
-        }
+    }
 }
 
 if($page[0] == 'products') {
@@ -147,8 +147,8 @@ if($page[0] == 'products') {
             $images = $_FILES['images'];
 
             if(!fieldsRequired($data)) {
-                $msg = 'Preencha todos os campos!';
-                return Header("Location: " . HOME . '/?url=products/save&msg=' . $msg);
+                $msg = 'Preencha todos os campo antes de atualizar os dados!';
+                return Header("Location: " . HOME . '/?url=products/edit&id=' . $data['id'] . '&msg=' . $msg);
             }
 
             if(!update(connection(), $data)) {  
@@ -172,6 +172,9 @@ if($page[0] == 'products') {
                 $msg = 'Produto não existe!';
                 Header("Location: " . HOME . '/?url=products/edit&msg=' . $msg);
             }
+
+            require 'src/functions/categories.php';
+            $categories = getAllCategories(connection());
 
             require VIEWS . '/products/edit.phtml';
         }        
@@ -208,6 +211,9 @@ if($page[0] == 'products') {
             Header("Location: " . HOME . '/?url=products/list&msg=' . $msg);
         }
 
+        require 'src/functions/categories.php';
+        $categories = getAllCategories(connection());
+
         require VIEWS . '/products/save.phtml';
     }
 
@@ -226,15 +232,74 @@ if($page[0] == 'categories') {
     require 'src/functions/categories.php';
 
     if($page[1] == 'list') {
-        $categories = getAll(connection());
+        $categories = getAllCategories(connection());
 
         require VIEWS . '/categories/index.phtml';
     }
 
     if($page[1] == 'save') {
-        //$products = getAll(connection());
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = $_POST;
+
+            if(!fieldsRequired($data)) {
+                $msg = 'Preencha todos os campos!';
+                return Header("Location: " . HOME . '/?url=categories/save&msg=' . $msg);
+            }
+
+            if(!createCategory(connection(), $data)){
+                $msg = 'Erro ao inserir usuário';
+                Header("Location: " . HOME . '/?url=users/list&msg=' . $msg);
+            }
+
+            $msg = 'Usuário inserido com sucesso!';
+            Header("Location: " . HOME . '/?url=categories/list&msg=' . $msg);
+        }
 
         require VIEWS . '/categories/save.phtml';
+    }
+
+    if($page[1] == 'edit') {
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {  
+            $data = $_POST;
+
+            if(!fieldsRequired($data)) {
+                $msg = 'Preencha todos os campo antes de atualizar os dados!';
+                return Header("Location: " . HOME . '/?url=categories/edit&id=' . $data['id'] . '&msg=' . $msg);
+            }
+
+            if(!updateCategory(connection(), $data)) {  
+                $msg = 'Erro ao atualizar categoria';
+                Header("Location: " . HOME . '/?url=categories/list&msg=' . $msg);
+            }
+
+            $msg = 'Categoria atualizada com sucesso!'; 
+            Header("Location: " . HOME . '/?url=categories/edit&id=' . $data['id'] . '&msg=' . $msg);
+
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $category = getCategory(connection(), $_GET['id']);
+
+            if(!$category) {
+                $msg = 'Categoria não existe!';
+                Header("Location: " . HOME . '/?url=categories/list&msg=' . $msg);
+            }
+
+            require VIEWS . '/categories/edit.phtml';
+        }
+
+    }
+
+    if($page[1] == 'remove') {
+        if(!deleteCategory(connection(), $_GET['id'])){
+            $msg = 'Erro ao remover categoria';
+            Header("Location: " . HOME . '/?url=categories/list&msg=' . $msg);
+        }
+
+        $msg = 'Categoria removida com sucesso!';
+        Header("Location: " . HOME . '/?url=categories/list&msg=' . $msg);
     }
 
 }

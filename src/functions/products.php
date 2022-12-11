@@ -16,6 +16,7 @@
             price,
             amount,
             description,
+            category_id,
             created_at,
             updated_at)
         values (
@@ -24,6 +25,7 @@
             :price,
             :amount,
             :description,
+            :category_id,
             now(),
             now())";
 
@@ -33,6 +35,7 @@
         $create->bindValue(":price", $data['price'], PDO::PARAM_STR);
         $create->bindValue(":amount", $data['amount'], PDO::PARAM_INT);
         $create->bindValue(":description", $data['description'], PDO::PARAM_STR);
+        $create->bindValue(":category_id", $data['category_id'], PDO::PARAM_INT);
 
         $create->execute();
 
@@ -42,10 +45,15 @@
     //Get all products   from data base
     function getAll($pdo) {
         $sql = "select p.*,
+            c.name as category,
             (select pi.image from products_images pi where p.id = pi.product_id limit 1) as
                 image
             from 
                 products p 
+            left join
+                categories c
+            on
+                p.category_id = c.id
             ORDER BY id DESC";
         
         // 
@@ -59,7 +67,7 @@
     //Get user from id
     function get($pdo, $id) {
         $sql = "select
-                    p.id, p.name, p.price, p.amount, p.description, p.slug, pi.id as image_id, pi.image
+                    p.id, p.name, p.category_id, p.price, p.amount, p.description, p.slug, pi.id as image_id, pi.image
                 from products p
                 left join
                     products_images pi
@@ -80,6 +88,7 @@
         foreach($products as $p) {
             $return['id'] = $p['id'];
             $return['name'] = $p['name'];
+            $return['category_id'] = $p['category_id'];
             $return['price'] = $p['price'];
             $return['amount'] = $p['amount'];
             $return['description'] = $p['description'];
@@ -108,8 +117,12 @@
 
         $sqlSet = '';
 
+        if(isset($data['category_id']) && $data['category_id']) {
+            $sqlSet .= " category_id = :category_id";
+        }
+
         if(isset($data['name']) && $data['name']) {
-            $sqlSet .= " name = :name";
+            $sqlSet .= $sqlSet ? ", name = :name" : " name = :name";
         }
 
         if(isset($data['slug']) && $data['slug']) {
@@ -131,6 +144,10 @@
         $sql = $sqlSet ? $sql . $sqlSet .= ' where id = :id' : $sql;
 
         $update = $pdo->prepare($sql);
+
+        if(isset($data['category_id']) && $data['category_id']) {
+            $update->bindValue(":category_id", $data['category_id'], PDO::PARAM_STR);
+        }
 
         if(isset($data['name']) && $data['name']) {
             $update->bindValue(":name", $data['name'], PDO::PARAM_STR);

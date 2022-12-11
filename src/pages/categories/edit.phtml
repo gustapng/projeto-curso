@@ -9,59 +9,23 @@
             <?php require VIEWS . '/includes/message.phtml'; ?>
         </div>
         <div class="col-md-12">
-            <a href="<?=HOME . '/?url=products/list';?>" class="btn btn-md btn-danger mb-3">
+            <a href="<?=HOME . '/?url=categories/list';?>" class="btn btn-md btn-danger mb-3">
                 Voltar
             </a>
-            <form action="<?=HOME . '?url=products/edit'?>" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
+
+            <form action="<?=HOME . '?url=categories/edit'?>" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
                         <label for="exampleInputPassword1">Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome" name="name" value="<?=$product['name']?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Slug (Ex: product-um)</label>
-                        <input type="text" class="form-control" placeholder="Slug" name="slug" value="<?=$product['slug']?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Preço</label>
-                        <input type="text" class="form-control" placeholder="Preço" name="price" value="<?=$product['price']?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Quantidade</label>
-                        <input type="number" class="form-control" placeholder="Quantidade" name="amount" value="<?=$product['amount']?>">
+                        <input type="text" class="form-control" placeholder="Nome" name="name" value="<?=$category['name']?>">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Descrição</label>
-                        <input type="text" class="form-control" placeholder="Descrição" name="description" value="<?=$product['description']?>">
+                        <input type="text" class="form-control" placeholder="Descrição" name="description" value="<?=$category['description']?>">
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Imagens do produto</label>
-                        <input type="file" class="form-control" name="images[]" multiple>
-                    </div>
-
-                <input type="hidden" name="id" value="<?=$product['id'];?>">
-                <button type="submit" class="btn btn-primary">Salvar produto</button>
+                <input type="hidden" name="id" value="<?=$category['id'];?>">
+                <button type="submit" class="btn btn-primary">Salvar Categoria</button>
             </form>
-
-            <?php if(isset($product['images']) && count($product['images']) > 0) { ?>
-                <div class="col-md-12 mt-5">
-
-                <h1>Fotos</h1>
-                <hr>
-
-                <div class="row">
-                    <?php foreach($product['images'] as $i) { ?>
-                        <div class="col-md-4">
-                            <img src="<?= HOME . '/assets/uploads/thumbs/' . $i['image']; ?>" alt="thumb" width="300px">
-                            <div class="row">   
-                                <a href="<?=HOME;?>?url=products/delete-image&product_id=<?=$product['id'];?>&image_id=<?=$i['id'];?>" class="btn btn-sm btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                teste</a>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
-            <?php } ?>
 
             </div>
         </div>
