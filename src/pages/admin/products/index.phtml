@@ -1,17 +1,17 @@
 <?php require VIEWS . '/includes/header.phtml'; ?>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row mb-3">
+            <div class="">
                 <h1>Produtos</h1>
             </div>
+            <a href="<?=HOME . '/admin/products/save';?>" class="btn btn-md btn-primary mb-3 ml-auto">
+                Cadastrar Produto
+            </a>
         </div>
         <div class="row">
             <?php require VIEWS . '/includes/message.phtml'; ?>
         </div>
         <div class="row">
-            <a href="<?=HOME . '/?url=products/save';?>" class="btn btn-md btn-primary mb-3">
-                Cadastrar Produto
-            </a>
             <table class="table">
                 <thead>
                     <tr>
@@ -38,8 +38,8 @@
                         <td><?=$product['price']?></td>
                         <td><p class="badge badge-success"><?=$product['category']?></p></td>
                         <td>
-                            <a href="<?=HOME . '?url=products/edit&id='. $product['id'] ;?>" class="btn btn-sm btn-warning">Editar</a>
-                            <a href="<?=HOME . '?url=products/remove&id='. $product['id'] ;?>" class="btn btn-sm btn-danger">Remover</a>
+                            <a href="<?=HOME . '/admin/products/edit/'. $product['id'] ;?>" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="<?=HOME . '/admin/products/remove/'. $product['id'] ;?>" class="btn btn-sm btn-danger">Remover</a>
                         </td>
                     </tr>
                     <?php } ?>

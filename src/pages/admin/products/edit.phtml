@@ -1,18 +1,18 @@
 <?php require VIEWS . '/includes/header.phtml'; ?>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row mb-3">
+            <div class="">
                 <h1>Editar produtos</h1>
             </div>
+            <a href="<?=HOME . '/admin/products/list';?>" class="btn btn-md btn-danger mb-3 ml-auto">
+                Voltar
+            </a>
         </div>
         <div class="row">
             <?php require VIEWS . '/includes/message.phtml'; ?>
         </div>
         <div class="col-md-12">
-            <a href="<?=HOME . '/?url=products/list';?>" class="btn btn-md btn-danger mb-3">
-                Voltar
-            </a>
-            <form action="<?=HOME . '?url=products/edit'?>" method="POST" enctype="multipart/form-data">
+            <form action="<?=HOME . '/admin/products/edit'?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                         <label for="exampleInputPassword1">Nome</label>
                         <input type="text" class="form-control" placeholder="Nome" name="name" value="<?=$product['name']?>">
@@ -73,7 +73,7 @@
                         <div class="col-md-4">
                             <img src="<?= HOME . '/assets/uploads/thumbs/' . $i['image']; ?>" alt="thumb" width="300px">
                             <div class="row">   
-                                <a href="<?=HOME;?>?url=products/delete-image&product_id=<?=$product['id'];?>&image_id=<?=$i['id'];?>" class="btn btn-sm btn-danger">
+                                <a href="<?=HOME;?>/admin/products/delete-image/<?=$product['id'];?>/<?=$i['id'];?>" class="btn btn-sm btn-danger">
                                     <i class="fa fa-trash"></i>
                                 teste</a>
                             </div>

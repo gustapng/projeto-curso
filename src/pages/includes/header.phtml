@@ -17,23 +17,31 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li <?php if(isUrl('dashboard')) { ?>
+            <?= 'class="active"' ?>
+            <?php } ?> >
             <a class="nav-link" href="<?=HOME?>">Home <span class="sr-only">(atual)</span></a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="<?=HOME . '?url=users/list'?>">Usuário<span class="sr-only">(atual)</span></a>
+          <li <?php if(isUrl('users')) { ?>
+            <?= 'class="active"' ?>
+            <?php } ?> >
+            <a class="nav-link" href="<?=HOME . '/admin/users/list'?>">Usuário<span class="sr-only">(atual)</span></a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="<?=HOME . '?url=products/list'?>">Produtos<span class="sr-only">(atual)</span></a>
+          <li <?php if(isUrl('products')) { ?>
+            <?= 'class="active"' ?>
+            <?php } ?> >
+            <a class="nav-link" href="<?=HOME . '/admin/products/list'?>">Produtos<span class="sr-only">(atual)</span></a>
           </li> 
-          <li class="nav-item active">
-            <a class="nav-link" href="<?=HOME . '?url=categories/list'?>">Categorias<span class="sr-only">(atual)</span></a>
+          <li <?php if(isUrl('categories')) { ?>
+            <?= 'class="active"' ?>
+            <?php } ?> >
+            <a class="nav-link" href="<?=HOME . '/admin/categories/list'?>">Categorias</a>
           </li> 
+
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-        </form>
+        <div class="ml-auto ">
+          <a class="btn btn-danger" href="<?=HOME . '/auth/logout'?>">Sair</a>
+        </div>
       </div>
     </nav>
 

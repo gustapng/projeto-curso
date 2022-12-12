@@ -1,18 +1,18 @@
 <?php require VIEWS . '/includes/header.phtml'; ?>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row mb-3">
+            <div class="">
                 <h1>Cadastrar produtos</h1>
             </div>
+            <a href="<?=HOME . '/admin/products/list';?>" class="btn btn-md btn-danger mb-3 ml-auto">
+                Voltar
+            </a>
         </div>
         <div class="row">
             <?php require VIEWS . '/includes/message.phtml'; ?>
         </div>
         <div class="">
-            <a href="<?=HOME . '/?url=products/list';?>" class="btn btn-md btn-danger mb-3">
-                Voltar
-            </a>
-            <form action="<?=HOME . '?url=products/save'?>" method="POST" enctype="multipart/form-data">
+            <form action="<?=HOME . '/admin/products/save'?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                         <label for="exampleInputPassword1">Nome</label>
                         <input type="text" class="form-control" placeholder="Nome" name="name">

@@ -1,17 +1,17 @@
 <?php require VIEWS . '/includes/header.phtml'; ?>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row mb-3">
+            <div>
                 <h1>Usuários</h1>
             </div>
+            <a href="<?=HOME . '/admin/users/save';?>" class="btn btn-md btn-primary mb-3 ml-auto">
+                Criar usuário
+            </a>
         </div>
         <div class="row">
             <?php require VIEWS . '/includes/message.phtml'; ?>
         </div>
         <div class="row">
-            <a href="<?=HOME . '/?url=users/save';?>" class="btn btn-md btn-primary mb-3">
-                Criar usuário
-            </a>
             <table class="table">
                 <thead>
                     <tr>
@@ -30,8 +30,8 @@
                         <td><?=$user['email']?></td>
                         <td><?=date("d/m/Y H:i:s", strtotime($user['created_at']))?></td>
                         <td>
-                            <a href="<?=HOME;?>/?url=users/edit&id=<?=$user['id'];?>" class="btn btn-sm btn-warning">Editar</a>
-                            <a href="<?=HOME;?>/?url=users/remove&id=<?=$user['id'];?>" class="btn btn-sm btn-danger">Remover</a>
+                            <a href="<?=HOME . '/admin/users/edit/'. $user['id'] ;?>" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="<?=HOME . '/admin/users/remove/'. $user['id'] ;?>" class="btn btn-sm btn-danger">Remover</a>
                         </td>
                     </tr>
                     <?php } ?>

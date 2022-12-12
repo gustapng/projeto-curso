@@ -1,5 +1,23 @@
-<?php if(isset($_GET['msg']) && $_GET['msg']) { ?>
-    <div class="alert alert-success">
-        <?= $_GET['msg'] ?>
+<?php $msg = getFlash('warning'); if($msg) { ?>
+
+    <div class="alert alert-warning">
+        <?=$msg;?>
     </div>
-<?php } ?>  
+
+<?php } ?>
+
+<?php $msg = getFlash('error'); if($msg) { ?>
+
+<div class="alert alert-danger">
+    <?=$msg;?>
+</div>
+
+<?php } ?>
+
+<?php $msg = getFlash('success'); if($msg) { ?>
+
+<div class="alert alert-success">
+    <?=$msg;?>
+</div>
+
+<?php } ?>

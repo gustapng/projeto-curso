@@ -34,8 +34,6 @@
     function getAll($pdo) {
         $sql = "select * from users ORDER BY id DESC";
         
-        // 
-
         $get = $pdo->prepare($sql);
         $get->execute();
 
