@@ -1,0 +1,39 @@
+<?php require VIEWS . '/site/header.phtml'; ?>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Conheça os nossos produtos!</h1>
+          <p>Uma variedade de opções para você!.</p>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <?php foreach(getAll(connection()) as $product) { ?>
+                <div class="col-md-4">
+
+                    <?php if($product['image']): ?>
+                        <img src="<?= HOME . '/assets/uploads/thumbs/' . $product['image']; ?>" alt="thumb" class="img-fluid">
+                    <?php else: ?>
+                        <img src="https://place-hold.it/100x100/666/fff.png/000" alt="thumb">
+                    <?php endif; ?>
+
+                    <h2><?=$product['name']?></h2>
+                    <p><?=$product['description']?></p>
+                    <p>R$ <?=number_format($product['price'], 2, ',', '.')?></p>
+                    <p><a class="btn btn-secondary" href="<?=HOME;?>/product/<?=$product['slug']?>" role="button">Ver Produto &raquo;</a></p>
+                </div>
+             <?php } ?>
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+<?php require VIEWS . '/site/footer.phtml'; ?>
