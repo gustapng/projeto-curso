@@ -2,14 +2,22 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = $_POST;
+        sessionStart();
 
         $user = login($data, connection());
 
-        sessionStart();
+        if(!$user) {
+            addFlash('error', 'Usuário ou senha incorretos!');
 
-        $_SESSION['user'] = $user;
+            header("Location: " . HOME . '/auth/login');
+            return;
+        } else {
+            sessionStart();
 
-        header("Location: " . HOME . '/admin/dashboard');
+            $_SESSION['user'] = $user;
+    
+            header("Location: " . HOME . '/admin/dashboard');
+        }
     }
 
     sessionStart();
@@ -17,7 +25,7 @@
     if(isset($_SESSION['user'])) {
         header("Location: " . HOME . '/admin/dashboard');
     }
-    
+
     require VIEWS . '/' . $page[0] . '/login.phtml';
 
 ?> 
